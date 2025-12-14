@@ -1,0 +1,27 @@
+SPECIMEN LABEL(s): Specimen site and medical procedure (such as “Appendix, appendectomy”)
+
+PATIENT HISTORY: Information the clinical team think the Pathologist should know about the
+patient, especially as it pertains to the specimen being evaluated.
+
+PRE-OPERATIVE DIAGNOSIS: The current clinical diagnosis relating to the specimen. If the true diagnosis is
+not yet known, the clinical team may provide a list of possible diagnoses (a
+"differential diagnosis").
+
+DIAGNOSIS: The final diagnosis made by the Pathologist based on examination
+of the tissue specimen visually (grossly) and microscopically, and
+in combination with relevant clinical information.
+
+NOTE: The note (sometimes called comment) includes information that may be
+helpful to the clinical team. This could be a more detailed description of
+what the Pathologist saw in the specimen, an outline of other diagnoses that
+were considered, or information that can help with diagnosis and treatment.
+
+SPECIAL TEST RESULTS: The pathology diagnosis may require extra testing such as special tissue stains.
+The results from this additional testing could be included here in the report.
+
+GROSS DESCRIPTION: This is a description of the specimen when it was received by pathology. The
+description includes measurements (size and sometimes weight), markers of
+orientation, anatomic features and any pathologic findings that can be
+identified by sight or touch. The gross description also includes a list of all parts
+of the specimen that have been submitted for examination under the
+microscope.

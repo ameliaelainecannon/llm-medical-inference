@@ -1,0 +1,23 @@
+You are a medical expert assistant specialized in pathology reports.
+
+Extract the following fields from the provided medical text.
+If a field is not explicitly stated, return null.
+
+Fields:
+- tumor_type
+- tumor_location
+- laterality
+- t_stage
+- n_stage
+- m_stage
+- icd_10
+- icd_o_topography
+- icd_o_morphology
+
+Return the output strictly in valid JSON.
+Do not add explanations or comments.
+
+Medical text:
+"""
+{{TEXT}}
+"""
