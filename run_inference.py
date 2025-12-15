@@ -1,10 +1,11 @@
 import json
 from pathlib import Path
 import ollama
+import re
 
 # Paths
 data_dir = Path("data")
-print(data_dir)
+#print(data_dir)
 prompt_file = Path("prompts/pathology_extraction.txt")
 output_dir = Path("outputs")
 output_dir.mkdir(exist_ok=True)
@@ -13,8 +14,8 @@ output_dir.mkdir(exist_ok=True)
 prompt_template = prompt_file.read_text()
 
 # Iterate over all .txt reports in data folder
+# print(list(data_dir.glob("*.txt")))
 for report_path in data_dir.glob("*.txt"): #List files matching pattern
-    print(data_dir.glob("*.txt").name())
     text = report_path.read_text() #gets the path of the file, reads it as a string, saves that string in "text"
     prompt = prompt_template.replace("{{TEXT}}", text) #replace TEXT in the prompt template with the example_report
 
@@ -35,12 +36,22 @@ for report_path in data_dir.glob("*.txt"): #List files matching pattern
 
     # Extract JSON safely
     try:
-        start = output_text.find("{")
-        end = output_text.rfind("}") + 1
-        json_output = json.loads(output_text[start:end])
+        # Extract all JSON object blocks
+        json_blocks = re.findall(r"\{[\s\S]*?\}", output_text)
+
+        if not json_blocks:
+            raise ValueError("No JSON object found in model output")
+
+        if len(json_blocks) == 1:
+            # Single tumor
+            json_output = json.loads(json_blocks[0])
+        else:
+            # Multiple tumors -> combine seperate JSONS to one JSON
+            json_output = [json.loads(block) for block in json_blocks]
     except Exception as e:
         print(f"Error parsing JSON for {report_path.name}: {e}")
-        print(f"the json error file:", json_output)
+        print("Raw model output:")
+        print(output_text) #NOT json_output -> that will output the previous example output
         continue
 
     # Save output
