@@ -4,6 +4,7 @@ import ollama
 
 # Paths
 data_dir = Path("data")
+print(data_dir)
 prompt_file = Path("prompts/pathology_extraction.txt")
 output_dir = Path("outputs")
 output_dir.mkdir(exist_ok=True)
@@ -12,7 +13,8 @@ output_dir.mkdir(exist_ok=True)
 prompt_template = prompt_file.read_text()
 
 # Iterate over all .txt reports in data folder
-for report_path in data_dir.glob("*.txt"):
+for report_path in data_dir.glob("*.txt"): #List files matching pattern
+    print(data_dir.glob("*.txt").name())
     text = report_path.read_text() #gets the path of the file, reads it as a string, saves that string in "text"
     prompt = prompt_template.replace("{{TEXT}}", text) #replace TEXT in the prompt template with the example_report
 
@@ -38,6 +40,7 @@ for report_path in data_dir.glob("*.txt"):
         json_output = json.loads(output_text[start:end])
     except Exception as e:
         print(f"Error parsing JSON for {report_path.name}: {e}")
+        print(f"the json error file:", json_output)
         continue
 
     # Save output
