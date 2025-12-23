@@ -13,6 +13,7 @@ This self-study project provides Python scripts to automatically extract structu
 
 ## Folder Structure
 
+```text
 LLM-MEDICAL-INFERENCE/
 │
 ├─ .venv/ # Python virtual environment
@@ -26,6 +27,7 @@ LLM-MEDICAL-INFERENCE/
 ├─ requirements.txt # Python dependencies
 ├─ README.md # Project documentation
 └─ .gitignore
+```
 
 ## Requirements
 
@@ -45,45 +47,36 @@ pip install -r requirements.txt
 ### Batch Inference
 Activate your virtual environment:
 
-bash
-Copy code
+```bash
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
 Place your pathology reports in the data/ folder as .txt files.
-
 Customize the prompt in prompts/pathology_extraction.txt if needed.
 
 Run the batch inference script:
-
-bash
-Copy code
+```bash
 python run_inference.py
+```
 JSON outputs will be saved in the outputs/ folder, named according to the input report files.
 
 Single Report Inference
-bash
-Copy code
+```bash
 python single_run_inference.py --input data/example_report.txt --output outputs/example_report.json
-How It Works
-The script reads .txt files from data/.
+```
 
-Inserts the report text into a prompt template (prompts/pathology_extraction.txt).
+## How It Works
+1. The script reads .txt files from data/.
+2. Inserts the report text into a prompt template (prompts/pathology_extraction.txt).
+3. Sends the prompt to the LLM (codellama:7b) with a system message enforcing JSON-only output.
+4. Parses the model response to extract JSON objects.
+5. Handles single or multiple tumors per report.
+6. Saves the resulting JSON to outputs/.
 
-Sends the prompt to the LLM (codellama:7b) with a system message enforcing JSON-only output.
-
-Parses the model response to extract JSON objects.
-
-Handles single or multiple tumors per report.
-
-Saves the resulting JSON to outputs/.
-
-Error Handling
+### Error Handling
 If the model output is not valid JSON, an error message is printed along with the raw output.
-
 The script continues processing other reports even if one fails.
 
-Notes
-Ensure your LLM model (codellama:7b) is accessible via ollama.chat.
-
+### Notes
+Ensure your LLM model (codellama:7b) is accessible via ollama.
 Adjust temperature in options to control randomness (currently set to 0.0 for deterministic output).
-
 The JSON structure depends on your prompt template and LLM instructions.
